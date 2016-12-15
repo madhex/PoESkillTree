@@ -787,7 +787,7 @@ namespace POESKillTree.SkillTreeFiles
             {
                 foreach (var pair in nh.NodeHighlights)
                 {
-                    if (pair.Key.ascendancyName != null && !DrawAscendancy || pair.Key.Spc != null)
+                    if (pair.Key.ascendancyName != null && !DrawAscendancy || pair.Key.Type == NodeType.ClassRoot)
                         continue;
                     // TODO: Make more elegant? Needs profiling.
                     var hs = pair.Value;
@@ -1081,7 +1081,7 @@ namespace POESKillTree.SkillTreeFiles
                 dc.DrawEllipse(null, radiusPen, node.Position, smallRadius - thickness / 2, smallRadius - thickness / 2);
                 foreach (var pair in nodesInSmallRadius)
                 {
-                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Type == NodeType.ClassRoot)
                         continue;
 
                     dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);
@@ -1091,7 +1091,7 @@ namespace POESKillTree.SkillTreeFiles
                 dc.DrawEllipse(null, radiusPen, node.Position, mediumRadius - thickness / 2, mediumRadius - thickness / 2);
                 foreach (var pair in nodesInMediumRadius)
                 {
-                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Type == NodeType.ClassRoot)
                         continue;
 
                     dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);
@@ -1101,7 +1101,7 @@ namespace POESKillTree.SkillTreeFiles
                 dc.DrawEllipse(null, radiusPen, node.Position, largeRadius - thickness / 2, largeRadius - thickness / 2);
                 foreach (var pair in nodesInLargeRadius)
                 {
-                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Type == NodeType.ClassRoot)
                         continue;
 
                     dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);

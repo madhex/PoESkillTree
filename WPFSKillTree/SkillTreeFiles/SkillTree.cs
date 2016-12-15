@@ -333,7 +333,7 @@ namespace POESKillTree.SkillTreeFiles
                     }
                     else if (!nd.ks && !nd.not && !nd.isJewelSocket && !nd.m)
                     {
-                        skillNode.Type = NodeType.Normal;
+                        skillNode.Type = nd.spc.Length == 0 ? NodeType.Normal : NodeType.ClassRoot;
                     }
                     else
                     {
@@ -893,7 +893,7 @@ namespace POESKillTree.SkillTreeFiles
                         continue;
                     if (distance.ContainsKey(connection))
                         continue;
-                    if (newNode.Spc.HasValue)
+                    if (newNode.Type == NodeType.ClassRoot)
                         continue;
                     if (newNode.Type == NodeType.Mastery)
                         continue;

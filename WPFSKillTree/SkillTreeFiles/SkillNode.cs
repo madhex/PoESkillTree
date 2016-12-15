@@ -9,7 +9,8 @@ namespace POESKillTree.SkillTreeFiles
         Notable,
         Keystone,
         Mastery,
-        JewelSocket
+        JewelSocket,
+        ClassRoot
     }
 
     public class SkillNode
@@ -62,6 +63,7 @@ namespace POESKillTree.SkillTreeFiles
                 string iconPrefix;
                 switch (Type)
                 {
+                    case NodeType.ClassRoot:
                     case NodeType.JewelSocket:
                     case NodeType.Normal:
                         iconPrefix = "normal";

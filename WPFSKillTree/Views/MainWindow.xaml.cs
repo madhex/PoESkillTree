@@ -1458,7 +1458,7 @@ namespace POESKillTree.Views
                 if (!PersistentData.Options.ShowAllAscendancyClasses && node.ascendancyName != null && node.ascendancyName != ascendancyClassName)
                     return;
                 // Ignore clicks on character portraits and masteries
-                if (node.Spc == null && node.Type != NodeType.Mastery)
+                if (node.Type != NodeType.ClassRoot && node.Type != NodeType.Mastery)
                 {
                     if (_lastMouseButton == MouseButton.Right)
                     {
