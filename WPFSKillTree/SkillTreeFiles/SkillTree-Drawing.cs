@@ -1065,16 +1065,47 @@ namespace POESKillTree.SkillTreeFiles
         {
             const int thickness = 10;
             var radiusPen = new Pen(Brushes.Cyan, thickness);
+            var highlightPen = new Pen(Brushes.Cyan, 20);
 
-            const int smallRadius = 800 - thickness / 2;
-            const int mediumRadius = 1200 - thickness / 2;
-            const int largeRadius = 1500 - thickness / 2;
+            const int smallRadius = 800;
+            const int mediumRadius = 1200;
+            const int largeRadius = 1500;
 
             using (var dc = _jewelHighlight.RenderOpen())
             {
-                dc.DrawEllipse(null, radiusPen, node.Position, smallRadius, smallRadius);
-                dc.DrawEllipse(null, radiusPen, node.Position, mediumRadius, mediumRadius);
-                dc.DrawEllipse(null, radiusPen, node.Position, largeRadius, largeRadius);
+                var nodesInSmallRadius = FindNodesInRange(node.Position, smallRadius).ToList();
+                var nodesInMediumRadius = FindNodesInRange(node.Position, mediumRadius).Except(nodesInSmallRadius).ToList();
+                var nodesInLargeRadius = FindNodesInRange(node.Position, largeRadius).Except(nodesInSmallRadius).Except(nodesInMediumRadius).ToList();
+
+                dc.PushOpacity(0.9);
+                dc.DrawEllipse(null, radiusPen, node.Position, smallRadius - thickness / 2, smallRadius - thickness / 2);
+                foreach (var pair in nodesInSmallRadius)
+                {
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                        continue;
+
+                    dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);
+                }
+
+                dc.PushOpacity(0.6);
+                dc.DrawEllipse(null, radiusPen, node.Position, mediumRadius - thickness / 2, mediumRadius - thickness / 2);
+                foreach (var pair in nodesInMediumRadius)
+                {
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                        continue;
+
+                    dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);
+                }
+
+                dc.PushOpacity(0.4);
+                dc.DrawEllipse(null, radiusPen, node.Position, largeRadius - thickness / 2, largeRadius - thickness / 2);
+                foreach (var pair in nodesInLargeRadius)
+                {
+                    if (pair.Value.Type == NodeType.Mastery || pair.Value.Spc.HasValue)
+                        continue;
+
+                    dc.DrawEllipse(null, highlightPen, pair.Value.Position, 80, 80);
+                }
             }
         }
     }
